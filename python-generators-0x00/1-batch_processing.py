@@ -14,7 +14,7 @@ def connect_to_prodev():
         connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="password",
+            password="",
             database="ALX_prodev"
         )
         return connection
