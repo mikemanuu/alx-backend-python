@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-
 import mysql.connector
 
 
@@ -23,23 +22,30 @@ def connect_to_prodev():
         return None
 
 
-def paginate_users(connection, page_size, offset):
+def paginate_users(page_size, offset):
     """
     Fetches a specific page of data from the user_data table.
 
     Args:
-        connection: MySQL connection object.
         page_size (int): Number of rows per page.
         offset (int): Offset for the SQL query.
     Returns:
         list: A page of rows from the user_data table.
     """
-    cursor = connection.cursor()
-    query = f"SELECT * FROM user_data LIMIT {page_size} OFFSET {offset}"
-    cursor.execute(query)
-    page = cursor.fetchall()
-    cursor.close()
-    return page
+    connection = connect_to_prodev()
+    if not connection:
+        return []
+
+    try:
+        cursor = connection.cursor()
+        query = f"SELECT * FROM user_data LIMIT {page_size} OFFSET {offset}"
+        cursor.execute(query)
+        page = cursor.fetchall()
+        return page
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
 
 
 def lazy_paginate(page_size):
@@ -51,21 +57,13 @@ def lazy_paginate(page_size):
     Yields:
         list: A page of rows from the user_data table.
     """
-    connection = connect_to_prodev()
-    if not connection:
-        return
-
-    try:
-        offset = 0
-        while True:
-            page = paginate_users(connection, page_size, offset)
-            if not page:  # Stop if no more data
-                break
-            yield page
-            offset += page_size  # Move to the next page
-    finally:
-        if connection.is_connected():
-            connection.close()
+    offset = 0
+    while True:
+        page = paginate_users(page_size, offset)
+        if not page:  # Stop if no more data
+            break
+        yield page
+        offset += page_size  # Move to the next page
 
 
 # Usage
