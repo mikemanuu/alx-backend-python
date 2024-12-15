@@ -1,0 +1,2 @@
+.tables
+PRAGMA table_info(users);
