@@ -5,9 +5,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField
 from rest_framework.serializers import SerializerMethodField
 
+
 # User Serializer
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -41,7 +40,7 @@ class ConversationSerializer(serializers.ModelSerializer):
         fields = ['conversation_id', 'participants', 'messages', 'created_at']
 
 
-# Custom Validation to ensure a user cannot be both sender and receiver)
+# Custom Validation to ensure that a user cannot be both sender and receiver)
 class MessageCreateSerializer(serializers.ModelSerializer):
     sender = serializers.UUIDField()
     receiver = serializers.UUIDField()
