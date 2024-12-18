@@ -44,7 +44,7 @@ class ConversationSerializer(serializers.ModelSerializer):
 class MessageCreateSerializer(serializers.ModelSerializer):
     sender = serializers.UUIDField()
     receiver = serializers.UUIDField()
-    message_body = CharField()
+    message_body = serializers.CharField()
 
     class Meta:
         model = Message
