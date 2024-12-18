@@ -13,19 +13,23 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=255, null=False)
     last_name = models.CharField(max_length=255, null=False)
     email = models.EmailField(unique=True, null=False)
-    phone_number = models.CharField(max_length=15, blank=True, null=True)
-    role = models.CharField(
-        max_length=10,
-        choices=[('guest', 'Guest'), ('host', 'Host'), ('admin', 'Admin')],
-        default='guest',
-    )
+    password_hash = models.CharField(max_length=255, null=False)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    ROLE_CHOICES = [
+        ('guest', 'Guest'),
+        ('host', 'Host'),
+        ('admin', 'Admin'),
+    ]
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    username = None
+
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'role']
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} ({self.email})"
+        return f"{self.email} ({self.role})"
 
 
 # Conversation Model
