@@ -52,5 +52,6 @@ class MessageCreateSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if data['sender'] == data['receiver']:
-            raise ValidationError("Sender and receiver cannot be the same.")
+            raise serializers.ValidationError(
+                "Sender and receiver cannot be the same.")
         return data
