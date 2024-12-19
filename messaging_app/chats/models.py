@@ -7,7 +7,17 @@ import uuid
 # User Model
 
 
-class User(AbstractUser):
+class user(AbstractUser):
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='chats_user_set',
+        blank=True,
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='chats_user_permissions_set',
+        blank=True,
+    )
     user_id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     first_name = models.CharField(max_length=255, null=False)
@@ -36,7 +46,7 @@ class User(AbstractUser):
 class Conversation(models.Model):
     conversation_id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    participants = models.ManyToManyField(User, related_name='conversations')
+    participants = models.ManyToManyField(user, related_name='conversations')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -48,7 +58,7 @@ class Message(models.Model):
     message_id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     sender = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='sent_messages')
+        user, on_delete=models.CASCADE, related_name='sent_messages')
     conversation = models.ForeignKey(
         Conversation, on_delete=models.CASCADE, related_name='messages')
     message_body = models.TextField(null=False)

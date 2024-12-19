@@ -3,7 +3,7 @@ from rest_framework import viewsets, status, filters
 from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Conversation, User, Message
+from .models import Conversation, user, Message
 from .serializers import ConversationSerializer, MessageSerializer, UserSerializer
 
 # Create your views here.

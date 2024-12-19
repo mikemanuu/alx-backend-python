@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from .models import User, Message, Conversation
-from .serializers import UserSerializer, MessageSerializer
+from .models import user, Message, Conversation
+# from .serializers import UserSerializer, MessageSerializer
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField
 from rest_framework.serializers import SerializerMethodField
@@ -9,7 +9,7 @@ from rest_framework.serializers import SerializerMethodField
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = user
         fields = ['user_id', 'first_name', 'last_name',
                   'email', 'phone_number', 'role', 'created_at']
 

@@ -15,7 +15,6 @@ nested_router.register('messages', MessageViewSet,
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('api/conversations/', ConversationListView.as_view(),
          name='conversation_list'),
     path('', include(router.urls)),
