@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
 # Message Serializer
 class MessageSerializer(serializers.ModelSerializer):
     sender = UserSerializer(read_only=True)
-    time_since_sent = serializers.SerializerMethodField()
+    time_since_sent = SerializerMethodField()
 
     class Meta:
         model = Message
@@ -44,7 +44,7 @@ class ConversationSerializer(serializers.ModelSerializer):
 class MessageCreateSerializer(serializers.ModelSerializer):
     sender = serializers.UUIDField()
     receiver = serializers.UUIDField()
-    message_body = serializers.CharField()
+    message_body = CharField()
 
     class Meta:
         model = Message
@@ -52,6 +52,6 @@ class MessageCreateSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if data['sender'] == data['receiver']:
-            raise serializers.ValidationError(
+            raise ValidationError(
                 "Sender and receiver cannot be the same.")
         return data
