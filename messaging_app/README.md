@@ -68,9 +68,9 @@ To run the application locally and test the functionality:
     ```
 2. Start the development server:
     ```
-python manage.py runserver
+    python manage.py runserver
     ```
-    
+
 3. Access the API at http://127.0.0.1:8000/api/.
     
 ## Debugging Errors
