@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
 # Message Serializer
 class MessageSerializer(serializers.ModelSerializer):
     sender = UserSerializer(read_only=True)
-    time_since_sent = SerializerMethodField()
+    time_since_sent = serializers.SerializerMethodField()
 
     class Meta:
         model = Message
