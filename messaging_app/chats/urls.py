@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from rest_framework import routers
 from .views import ConversationListView, ConversationViewSet, MessageViewSet
 
 
-router = DefaultRouter()
+router = routers.DefaultRouter()
 router.register('conversations', ConversationViewSet, basename='conversations')
 router.register('messages', MessageViewSet, basename='messages')
 
