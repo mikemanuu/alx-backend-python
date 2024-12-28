@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'chats',
     'rest_framework_simplejwt',
+    'django_filters',
 ]
 
 # DRF Authentication Settings
