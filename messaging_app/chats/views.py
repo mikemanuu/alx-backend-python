@@ -50,7 +50,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
         if len(participants_info) < 2:
             return Response({"error": "Participants should be more than 1."}, status=status.HTTP_400_BAD_REQUEST)
 
-        participants = User.objects.filter(user_id__in=participants_info)
+        participants = user.objects.filter(user_id__in=participants_info)
 
         if participants.count() != len(participants_info):
             return Response({"error": "Participants are not more than 1."}, status=status.HTTP_400_BAD_REQUEST)
@@ -87,7 +87,7 @@ class MessageViewSet(viewsets.ModelViewSet):
         conversation_id = request.data.get('conversation')
         message_body = request.data.get('message_body')
 
-        sender = User.objects.get(user_id=sender_id)
+        sender = user.objects.get(user_id=sender_id)
         conversation = Conversation.objects.get(
             conversation_id=conversation_id)
 
